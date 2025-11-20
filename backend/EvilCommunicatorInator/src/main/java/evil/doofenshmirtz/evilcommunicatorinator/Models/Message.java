@@ -1,18 +1,23 @@
 package evil.doofenshmirtz.evilcommunicatorinator.Models;
 
-public class Message {
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bson.codecs.pojo.annotations.BsonId;
+import org.bson.types.ObjectId;
+
+import java.io.Serializable;
+
+public class Message implements Serializable {
+    @BsonId
+    @JsonProperty("message_id")
+    private ObjectId message_id;
+    private ObjectId user_id;
     private String content;
-    private int userId;
-    private int messageId;
-    private int timestamp;
 
     public Message() {}
 
-    public Message(String content, int userId, int messageId, int timestamp) {
+    public Message(String content, ObjectId user_id) {
         this.content = content;
-        this.userId = userId;
-        this.messageId = messageId;
-        this.timestamp = timestamp;
+        this.user_id = user_id;
     }
 
     public String getContent() {
@@ -23,27 +28,19 @@ public class Message {
         this.content = content;
     }
 
-    public int getUserId() {
-        return userId;
+    public ObjectId getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser_id(ObjectId user_id) {
+        this.user_id = user_id;
     }
 
-    public int getMessageId() {
-        return messageId;
+    public ObjectId getMessage_id() {
+        return message_id;
     }
 
-    public void setMessageId(int messageId) {
-        this.messageId = messageId;
-    }
-
-    public int getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(int timestamp) {
-        this.timestamp = timestamp;
+    public void setMessage_id(ObjectId message_id) {
+        this.message_id = message_id;
     }
 }
