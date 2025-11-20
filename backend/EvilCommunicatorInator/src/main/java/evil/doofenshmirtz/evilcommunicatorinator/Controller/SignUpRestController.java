@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/signup")
 public class SignUpRestController {
 
     @RequestMapping(path = "", method = RequestMethod.POST)
