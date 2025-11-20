@@ -1,20 +1,25 @@
 package evil.doofenshmirtz.evilcommunicatorinator.Controller;
 
-import evil.doofenshmirtz.evilcommunicatorinator.Models.SignUp;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+import evil.doofenshmirtz.evilcommunicatorinator.Models.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 @RestController
-@RequestMapping("/signup")
-public class SignUpRestController {
+@RequestMapping("/user")
+public class UserRestController {
 
     @RequestMapping(path = "", method = RequestMethod.POST)
-    public String create(@RequestBody SignUp signUp) {
+    public String create(@RequestBody User user) {
 
         switch (Settings.dbStatus) {
             case ARRAYLIST:
-                return SignUpRestDataArrayList.add(signUp);
+                return UserRestDataArrayList.add(user);
 
             case SQL:
                 return null;
@@ -29,10 +34,10 @@ public class SignUpRestController {
     }
 
     @RequestMapping(path = "", method = RequestMethod.GET)
-    public List<SignUp> getAll() {
+    public List<User> getAll() {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
-                return SignUpRestDataArrayList.getAll();
+                return UserRestDataArrayList.getAll();
 
             case SQL:
                 return null;
@@ -47,10 +52,10 @@ public class SignUpRestController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public SignUp findById(@PathVariable int id) {
+    public User findById(@PathVariable int id) {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
-                return SignUpRestDataArrayList.getById(id);
+                return UserRestDataArrayList.getById(id);
 
             case SQL:
                 return null;
@@ -65,10 +70,10 @@ public class SignUpRestController {
     }
 
     @RequestMapping(path = "", method = RequestMethod.PUT)
-    public SignUp update(@RequestBody SignUp signup) {
+    public User update(@RequestBody User user) {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
-                return SignUpRestDataArrayList.update(signup);
+                return UserRestDataArrayList.update(user);
 
             case SQL:
                 return null;
@@ -86,7 +91,7 @@ public class SignUpRestController {
     public String deleteById(@PathVariable int id) {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
-                return SignUpRestDataArrayList.deleteById(id);
+                return UserRestDataArrayList.deleteById(id);
 
             case SQL:
                 return null;
