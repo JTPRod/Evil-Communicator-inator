@@ -3,6 +3,7 @@ package evil.doofenshmirtz.evilcommunicatorinator.Controller;
 import java.util.List;
 
 import evil.doofenshmirtz.evilcommunicatorinator.Models.Message;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,7 +53,7 @@ public class MessageRestController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public Message findById(@PathVariable int id) {
+    public Message findById(@PathVariable ObjectId id) {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
                 return MessageRestDataArrayList.getById(id);
@@ -88,7 +89,7 @@ public class MessageRestController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-    public String deleteById(@PathVariable int id) {
+    public String deleteById(@PathVariable ObjectId id) {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
                 return MessageRestDataArrayList.deleteById(id);

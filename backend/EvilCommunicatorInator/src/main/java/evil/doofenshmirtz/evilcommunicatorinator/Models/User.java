@@ -1,17 +1,25 @@
 package evil.doofenshmirtz.evilcommunicatorinator.Models;
 
-public class User {
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bson.codecs.pojo.annotations.BsonId;
+import org.bson.types.ObjectId;
+
+import java.io.Serializable;
+
+public class User implements Serializable {
+    @BsonId
+    @JsonProperty("user_id")
+    private ObjectId user_id;
     private String username;
     private String password;
-    private int userId;
     private String bio;
 
     public User() {}
 
-    public User(String username, String password, int userId, String bio) {
+    public User(String username, String password, ObjectId user_id, String bio) {
         this.username = username;
         this.password = password;
-        this.userId = userId;
+        this.user_id = user_id;
         this.bio = bio;
     }
 
@@ -31,12 +39,12 @@ public class User {
         this.password = password;
     }
 
-    public int getUserId() {
-        return userId;
+    public ObjectId getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser_id(ObjectId user_id) {
+        this.user_id = user_id;
     }
 
     public String getBio() {
