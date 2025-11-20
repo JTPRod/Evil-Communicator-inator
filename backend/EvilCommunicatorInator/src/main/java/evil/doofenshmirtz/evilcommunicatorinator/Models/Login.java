@@ -1,14 +1,14 @@
 package evil.doofenshmirtz.evilcommunicatorinator.Models;
 
-public class User {
+public class Login {
     private String username;
     private String password;
     private int userId;
     private String bio;
 
-    public User() {}
+    public Login() {}
 
-    public User(String username, String password, int userId, String bio) {
+    public Login(String username, String password, int userId, String bio) {
         this.username = username;
         this.password = password;
         this.userId = userId;
