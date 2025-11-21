@@ -4,7 +4,7 @@ public class Settings {
     public static enum DBStatus {
         ARRAYLIST,
         JSON,
-        SQL,
+        MONGO,
         JPA
     }
 

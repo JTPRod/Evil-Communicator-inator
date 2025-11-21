@@ -1,6 +1,7 @@
 package evil.doofenshmirtz.evilcommunicatorinator.Controller;
 
 import evil.doofenshmirtz.evilcommunicatorinator.Models.User;
+import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ public class SignUpRestController {
             case ARRAYLIST:
                 return SignUpRestDataArrayList.add(signUp);
 
-            case SQL:
+            case MONGO:
                 return null;
 
             case JPA:
@@ -38,7 +39,7 @@ public class SignUpRestController {
             case ARRAYLIST:
                 return SignUpRestDataArrayList.getAll();
 
-            case SQL:
+            case MONGO:
                 return null;
 
             case JPA:
@@ -51,12 +52,12 @@ public class SignUpRestController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public User findById(@PathVariable int id) {
+    public User findById(@PathVariable ObjectId id) {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
                 return SignUpRestDataArrayList.getById(id);
 
-            case SQL:
+            case MONGO:
                 return null;
 
             case JPA:
@@ -74,7 +75,7 @@ public class SignUpRestController {
             case ARRAYLIST:
                 return SignUpRestDataArrayList.update(signup);
 
-            case SQL:
+            case MONGO:
                 return null;
 
             case JPA:
@@ -87,12 +88,12 @@ public class SignUpRestController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-    public String deleteById(@PathVariable int id) {
+    public String deleteById(@PathVariable ObjectId id) {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
                 return SignUpRestDataArrayList.deleteById(id);
 
-            case SQL:
+            case MONGO:
                 return null;
 
             case JPA:

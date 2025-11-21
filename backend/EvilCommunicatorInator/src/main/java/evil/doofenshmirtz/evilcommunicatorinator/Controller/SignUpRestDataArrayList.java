@@ -1,6 +1,7 @@
 package evil.doofenshmirtz.evilcommunicatorinator.Controller;
 
 import evil.doofenshmirtz.evilcommunicatorinator.Models.User;
+import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public class SignUpRestDataArrayList {
         return SIGN_UPS;
     }
 
-    public static User getById(int id) {
+    public static User getById(ObjectId id) {
         return SIGN_UPS.stream().filter(signup -> signup.getUser_id() == id).findFirst().orElse(null);
     }
 
@@ -35,7 +36,7 @@ public class SignUpRestDataArrayList {
         return null;
     }
 
-    public static String deleteById(int id) {
+    public static String deleteById(ObjectId id) {
         return SIGN_UPS.removeIf(signup -> signup.getUser_id() == id) ? "Removed" : "Not Found";
     }
 }

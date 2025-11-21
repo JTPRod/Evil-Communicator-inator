@@ -4,7 +4,6 @@ import java.util.List;
 
 import evil.doofenshmirtz.evilcommunicatorinator.Models.Message;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +21,7 @@ public class MessageRestController {
             case ARRAYLIST:
                 return MessageRestDataArrayList.add(message);
 
-            case SQL:
+            case MONGO:
                 return null;
 
             case JPA:
@@ -40,7 +39,7 @@ public class MessageRestController {
             case ARRAYLIST:
                 return MessageRestDataArrayList.getAll();
 
-            case SQL:
+            case MONGO:
                 return null;
 
             case JPA:
@@ -58,7 +57,7 @@ public class MessageRestController {
             case ARRAYLIST:
                 return MessageRestDataArrayList.getById(id);
 
-            case SQL:
+            case MONGO:
                 return null;
 
             case JPA:
@@ -76,7 +75,7 @@ public class MessageRestController {
             case ARRAYLIST:
                 return MessageRestDataArrayList.update(message);
 
-            case SQL:
+            case MONGO:
                 return null;
 
             case JPA:
@@ -94,7 +93,7 @@ public class MessageRestController {
             case ARRAYLIST:
                 return MessageRestDataArrayList.deleteById(id);
 
-            case SQL:
+            case MONGO:
                 return null;
 
             case JPA:
