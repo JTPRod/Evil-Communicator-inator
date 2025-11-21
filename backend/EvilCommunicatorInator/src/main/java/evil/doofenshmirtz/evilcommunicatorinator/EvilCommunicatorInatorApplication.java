@@ -13,14 +13,14 @@ public class EvilCommunicatorInatorApplication {
 		SpringApplication.run(EvilCommunicatorInatorApplication.class, args);
 	}
 
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://localhost:8081").allowedMethods("*");
-			}
-		};
-	}
+//	@Bean
+//	public WebMvcConfigurer corsConfigurer() {
+//		return new WebMvcConfigurer() {
+//			@Override
+//			public void addCorsMappings(CorsRegistry registry) {
+//				registry.addMapping("/**").allowedOrigins("http://localhost:8081").allowedMethods("*");
+//			}
+//		};
+//	}
 
 }
