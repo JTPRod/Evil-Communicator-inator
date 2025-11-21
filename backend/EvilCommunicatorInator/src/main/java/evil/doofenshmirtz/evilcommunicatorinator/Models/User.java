@@ -1,17 +1,17 @@
 package evil.doofenshmirtz.evilcommunicatorinator.Models;
 
-public class Login {
+public class User {
     private String username;
     private String password;
-    private int userId;
+    private int user_id;
     private String bio;
 
-    public Login() {}
+    public User() {}
 
-    public Login(String username, String password, int userId, String bio) {
+    public User(String username, String password, int user_id, String bio) {
         this.username = username;
         this.password = password;
-        this.userId = userId;
+        this.user_id = user_id;
         this.bio = bio;
     }
 
@@ -31,12 +31,12 @@ public class Login {
         this.password = password;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getBio() {

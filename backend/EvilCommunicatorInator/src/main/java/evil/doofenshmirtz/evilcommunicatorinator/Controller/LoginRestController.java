@@ -2,7 +2,7 @@ package evil.doofenshmirtz.evilcommunicatorinator.Controller;
 
 import java.util.List;
 
-import evil.doofenshmirtz.evilcommunicatorinator.Models.Login;
+import evil.doofenshmirtz.evilcommunicatorinator.Models.User;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginRestController {
 
     @RequestMapping(path = "", method = RequestMethod.POST)
-    public String create(@RequestBody Login login) {
+    public String create(@RequestBody User login) {
 
         switch (Settings.dbStatus) {
             case ARRAYLIST:
@@ -33,7 +33,7 @@ public class LoginRestController {
     }
 
     @RequestMapping(path = "", method = RequestMethod.GET)
-    public List<Login> getAll() {
+    public List<User> getAll() {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
                 return LoginRestDataArrayList.getAll();
@@ -51,7 +51,7 @@ public class LoginRestController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public Login findById(@PathVariable int id) {
+    public User findById(@PathVariable int id) {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
                 return LoginRestDataArrayList.getById(id);
@@ -69,7 +69,7 @@ public class LoginRestController {
     }
 
     @RequestMapping(path = "", method = RequestMethod.PUT)
-    public Login update(@RequestBody Login login) {
+    public User update(@RequestBody User login) {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
                 return LoginRestDataArrayList.update(login);

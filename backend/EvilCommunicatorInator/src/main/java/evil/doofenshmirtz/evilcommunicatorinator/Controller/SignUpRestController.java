@@ -1,7 +1,11 @@
 package evil.doofenshmirtz.evilcommunicatorinator.Controller;
 
-import evil.doofenshmirtz.evilcommunicatorinator.Models.SignUp;
-import org.springframework.web.bind.annotation.*;
+import evil.doofenshmirtz.evilcommunicatorinator.Models.User;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -10,7 +14,7 @@ import java.util.List;
 public class SignUpRestController {
 
     @RequestMapping(path = "", method = RequestMethod.POST)
-    public String create(@RequestBody SignUp signUp) {
+    public String create(@RequestBody User signUp) {
 
         switch (Settings.dbStatus) {
             case ARRAYLIST:
@@ -29,7 +33,7 @@ public class SignUpRestController {
     }
 
     @RequestMapping(path = "", method = RequestMethod.GET)
-    public List<SignUp> getAll() {
+    public List<User> getAll() {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
                 return SignUpRestDataArrayList.getAll();
@@ -47,7 +51,7 @@ public class SignUpRestController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public SignUp findById(@PathVariable int id) {
+    public User findById(@PathVariable int id) {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
                 return SignUpRestDataArrayList.getById(id);
@@ -65,7 +69,7 @@ public class SignUpRestController {
     }
 
     @RequestMapping(path = "", method = RequestMethod.PUT)
-    public SignUp update(@RequestBody SignUp signup) {
+    public User update(@RequestBody User signup) {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
                 return SignUpRestDataArrayList.update(signup);

@@ -1,14 +1,14 @@
 package evil.doofenshmirtz.evilcommunicatorinator.Controller;
 
-import evil.doofenshmirtz.evilcommunicatorinator.Models.Login;
+import evil.doofenshmirtz.evilcommunicatorinator.Models.User;
 
 import java.util.ArrayList;
 
 public class LoginRestDataArrayList {
-    private static final ArrayList<Login> LOGINS = new ArrayList<>();
+    private static final ArrayList<User> LOGINS = new ArrayList<>();
 
-    public static String add(Login login) {
-        if (LOGINS.stream().filter(i -> i.getUserId() == login.getUserId()).findFirst().orElse(null) == null) {
+    public static String add(User login) {
+        if (LOGINS.stream().filter(i -> i.getUser_id() == login.getUser_id()).findFirst().orElse(null) == null) {
             LOGINS.add(login);
             return "Login Added";
         } else {
@@ -16,16 +16,16 @@ public class LoginRestDataArrayList {
         }
     }
 
-    public static ArrayList<Login> getAll() {
+    public static ArrayList<User> getAll() {
         return LOGINS;
     }
 
-    public static Login getById(int id) {
-        return LOGINS.stream().filter(login -> login.getUserId() == id).findFirst().orElse(null);
+    public static User getById(int id) {
+        return LOGINS.stream().filter(login -> login.getUser_id() == id).findFirst().orElse(null);
     }
 
-    public static Login update(Login login) {
-        Login temp_login = LOGINS.stream().filter(i -> i.getUserId() == login.getUserId()).findFirst().orElse(null);
+    public static User update(User login) {
+        User temp_login = LOGINS.stream().filter(i -> i.getUser_id() == login.getUser_id()).findFirst().orElse(null);
         if (temp_login != null) {
             LOGINS.remove(temp_login);
             LOGINS.add(login);
@@ -36,6 +36,6 @@ public class LoginRestDataArrayList {
     }
 
     public static String deleteById(int id) {
-        return LOGINS.removeIf(login -> login.getUserId() == id) ? "Removed" : "Not Found";
+        return LOGINS.removeIf(login -> login.getUser_id() == id) ? "Removed" : "Not Found";
     }
 }
