@@ -4,14 +4,11 @@ import java.util.List;
 
 import evil.doofenshmirtz.evilcommunicatorinator.Models.Message;
 import org.bson.types.ObjectId;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/message")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class MessageRestController {
 
     @RequestMapping(path = "", method = RequestMethod.POST)
