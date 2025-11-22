@@ -8,6 +8,18 @@ function appendMessage(user, content) {
     messages.value += `\n${user}: ${content}`;
 }
 
+const baseUrl = "http://localhost:8080/message";
+
+function sendMessage(){
+    const userId = sessionStorage.getItem('userId') || '0';
+    const content = messageInput.value.trim();
+    fetch(baseUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, content })
+    });
+}
+
 sendButton.addEventListener('click', async () => {
     const content = messageInput.value.trim();
     if (!content) return;
@@ -24,7 +36,7 @@ sendButton.addEventListener('click', async () => {
     };
 
     try {
-        const res = await fetch('/message', {
+        const res = await fetch(baseUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
