@@ -6,18 +6,18 @@
 
     document.addEventListener('DOMContentLoaded', async () => {
         const username = sessionStorage.getItem('username') || '';
-        const userId = Number(sessionStorage.getItem('userId') || 0);
+        const user_id = Number(sessionStorage.getItem('user_id') || 0);
 
         if (titleUsername) titleUsername.textContent = (username ? username + ' - Doofenshmirtz Evil Inc.' : '[Username] - Doofenshmirtz Evil Inc.');
         if (usernameP) usernameP.textContent = 'Username: ' + (username || 'Not logged in');
 
         // try to fetch existing bio from backend
-        if (userId > 0) {
+        if (user_id > 0) {
             try {
                 const res = await fetch('/user');
                 if (res.ok) {
                     const users = await res.json();
-                    const me = users.find(u => u.userId === userId || u.username === username);
+                    const me = users.find(u => u.user_id === user_id || u.username === username);
                     if (me && me.bio) {
                         bioDisplay.textContent = 'Bio: ' + me.bio;
                         bioInput.value = me.bio;
@@ -35,7 +35,7 @@
             if (bioDisplay) bioDisplay.textContent = 'Bio: ' + newBio;
 
             const username = sessionStorage.getItem('username') || '';
-            const userId = Number(sessionStorage.getItem('userId') || 0);
+            const user_id = Number(sessionStorage.getItem('user_id') || 0);
             if (!username) {
                 alert('Not logged in');
                 return;
@@ -49,7 +49,7 @@
                     return;
                 }
                 const users = await res.json();
-                const me = users.find(u => u.userId === userId || u.username === username);
+                const me = users.find(u => u.user_id === user_id || u.username === username);
                 if (!me) {
                     alert('User not found on server');
                     return;

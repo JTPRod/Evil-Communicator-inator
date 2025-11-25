@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const found = users.find(u => u.username === username && u.password === password);
             if (found) {
                 sessionStorage.setItem('username', found.username);
-                sessionStorage.setItem('userId', String(found.userId || 0));
+                sessionStorage.setItem('user_id', String(found.userId || 0));
                 window.location.href = '../index.html';
             } else {
                 alert('Invalid credentials');

@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const payload = { username, password, userId: 0, bio: '' };
+        const payload = { username, password, user_id: 0, bio: '' };
 
         try {
             const res = await fetch('/user', {
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (res.ok && (text.includes('Added') || text.length === 0)) {
                 sessionStorage.setItem('username', username);
                 // we don't know backend-assigned id; store 0 as placeholder
-                sessionStorage.setItem('userId', '0');
+                sessionStorage.setItem('user_id', '0');
                 window.location.href = '../html/success.html';
             } else {
                 alert('Signup failed: ' + text);
