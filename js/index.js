@@ -1,0 +1,54 @@
+const messageArea = document.getElementById('message-area');
+const messages = document.getElementById('messages');
+const sendButton = document.getElementById('send-button');
+const messageInput = document.getElementById('message-input');
+
+function appendMessage(user, content) {
+    if (!messages) return;
+    messages.value += `\n${user}: ${content}`;
+}
+
+const baseUrl = "http://localhost:8080/message";
+
+function sendMessage(){
+    const user_id = sessionStorage.getItem('user_id') || '0';
+    const content = messageInput.value.trim();
+    fetch(baseUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id, content })
+    });
+}
+
+sendButton.addEventListener('click', async () => {
+    const content = messageInput.value.trim();
+    if (!content) return;
+
+    const username = sessionStorage.getItem('username') || 'Anonymous';
+    //const user_id = Number(sessionStorage.getItem('user_id') || 000000000000000000000000);
+
+    // create message payload compatible with backend Message model
+    const payload = {
+        user_id: "000000000000000000000000",
+        content: content,
+        message_id: "000000000000000000000000"
+    };
+
+    try {
+        const res = await fetch(baseUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        const text = await res.text();
+        if (res.ok) {
+            appendMessage(username, content);
+            messageInput.value = '';
+        } else {
+            alert('Failed to send message: ' + text);
+        }
+    } catch (err) {
+        alert('Network error: ' + err);
+    }
+});
