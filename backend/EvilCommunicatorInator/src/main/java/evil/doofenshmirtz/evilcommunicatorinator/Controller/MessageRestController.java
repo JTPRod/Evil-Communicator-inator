@@ -22,7 +22,7 @@ public class MessageRestController {
                 return MessageRestDataArrayList.add(message);
 
             case MONGO:
-                return null;
+                return EvilCommunicatorRestDataMongo.addMessage(message);
 
             case JPA:
                 return null;
@@ -40,7 +40,7 @@ public class MessageRestController {
                 return MessageRestDataArrayList.getAll();
 
             case MONGO:
-                return null;
+                return EvilCommunicatorRestDataMongo.getAllMessages();
 
             case JPA:
                 return null;
@@ -58,7 +58,7 @@ public class MessageRestController {
                 return MessageRestDataArrayList.getById(id);
 
             case MONGO:
-                return null;
+                return EvilCommunicatorRestDataMongo.getMessageById(id);
 
             case JPA:
                 return null;
@@ -66,7 +66,18 @@ public class MessageRestController {
             default:
                 return null;
         }
+    }
 
+    @RequestMapping(path = "/user/{id}", method = RequestMethod.GET)
+    public List<Message> findByUserId(@PathVariable ObjectId id) {
+        switch (Settings.dbStatus) {
+            case ARRAYLIST:
+                return null;
+            case MONGO:
+                return EvilCommunicatorRestDataMongo.getAllMessagesByUserId(id);
+            default:
+                return null;
+        }
     }
 
     @RequestMapping(path = "", method = RequestMethod.PUT)
@@ -76,7 +87,7 @@ public class MessageRestController {
                 return MessageRestDataArrayList.update(message);
 
             case MONGO:
-                return null;
+                return EvilCommunicatorRestDataMongo.updateMessage(message);
 
             case JPA:
                 return null;
@@ -94,7 +105,7 @@ public class MessageRestController {
                 return MessageRestDataArrayList.deleteById(id);
 
             case MONGO:
-                return null;
+                return EvilCommunicatorRestDataMongo.deleteMessageById(id);
 
             case JPA:
                 return null;
