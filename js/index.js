@@ -25,12 +25,13 @@ sendButton.addEventListener('click', async () => {
     if (!content) return;
 
     const username = sessionStorage.getItem('username') || 'Anonymous';
-    const user_id = Number(sessionStorage.getItem('user_id') || 0);
+    //const user_id = Number(sessionStorage.getItem('user_id') || 000000000000000000000000);
 
     // create message payload compatible with backend Message model
     const payload = {
-        user_id: user_id,
+        user_id: "000000000000000000000000",
         content: content,
+        message_id: "000000000000000000000000"
     };
 
     try {
