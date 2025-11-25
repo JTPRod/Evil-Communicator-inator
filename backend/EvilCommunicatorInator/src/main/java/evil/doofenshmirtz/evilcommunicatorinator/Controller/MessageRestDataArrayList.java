@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class MessageRestDataArrayList {
     private static final ArrayList<Message> messages = new ArrayList<>();
 
-    public static String add(Message message) {
-        if (messages.stream().filter(i -> i.getMessage_id() == message.getMessage_id()).findFirst().orElse(null) == null) {
+    public static String  add(Message message) {
+        if (messages.stream().filter(i -> i.getMessage_id().equals(message.getMessage_id())).findFirst().orElse(null) == null) {
             messages.add(message);
             return "Message Added";
         } else {
@@ -22,11 +22,11 @@ public class MessageRestDataArrayList {
     }
 
     public static Message getById(ObjectId id) {
-        return messages.stream().filter(message -> message.getMessage_id() == id).findFirst().orElse(null);
+        return messages.stream().filter(i -> i.getMessage_id().equals(id)).findFirst().orElse(null);
     }
 
     public static Message update(Message message) {
-        Message temp_message = messages.stream().filter(i -> i.getMessage_id() == message.getMessage_id()).findFirst().orElse(null);
+        Message temp_message = messages.stream().filter(i -> i.getMessage_id().equals(message.getMessage_id())).findFirst().orElse(null);
         if (temp_message != null) {
             messages.remove(temp_message);
             messages.add(message);
@@ -37,6 +37,6 @@ public class MessageRestDataArrayList {
     }
 
     public static String deleteById(ObjectId id) {
-        return messages.removeIf(message -> message.getMessage_id() == id) ? "Removed" : "Not Found";
+        return messages.removeIf(message -> message.getMessage_id().equals(id)) ? "Removed" : "Not Found";
     }
 }
