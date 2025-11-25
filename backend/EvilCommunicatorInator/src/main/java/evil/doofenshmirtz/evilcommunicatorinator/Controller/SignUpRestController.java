@@ -2,16 +2,13 @@ package evil.doofenshmirtz.evilcommunicatorinator.Controller;
 
 import evil.doofenshmirtz.evilcommunicatorinator.Models.User;
 import org.bson.types.ObjectId;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/signup")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class SignUpRestController {
 
     @RequestMapping(path = "", method = RequestMethod.POST)
