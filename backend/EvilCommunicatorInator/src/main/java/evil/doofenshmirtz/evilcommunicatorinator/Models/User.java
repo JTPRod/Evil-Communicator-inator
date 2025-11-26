@@ -3,6 +3,7 @@ package evil.doofenshmirtz.evilcommunicatorinator.Models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.Serializable;
 
@@ -21,6 +22,14 @@ public class User implements Serializable {
         this.password = password;
         this.user_id = user_id;
         this.bio = bio;
+    }
+
+    public static String hashPassword(String password) {
+        return BCrypt.hashpw(password, BCrypt.gensalt(12));
+    }
+
+    public static boolean validatePassword(String password) {
+        return BCrypt.checkpw(password, BCrypt.gensalt(12));
     }
 
     public String getUsername() {

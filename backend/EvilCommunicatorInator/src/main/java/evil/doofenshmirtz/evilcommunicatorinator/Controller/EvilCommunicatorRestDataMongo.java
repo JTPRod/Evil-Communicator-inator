@@ -103,19 +103,58 @@ public class EvilCommunicatorRestDataMongo {
 
     // Users
     public static String addUser(User user){
-        return "";
+        user.setPassword(User.hashPassword(user.getPassword()));
+        try (MongoClient mongo = MongoClients.create(settings)) {
+            MongoDatabase database = mongo.getDatabase("EvilCommunicatorInator");
+            MongoCollection<User> collection = database.getCollection("Users", User.class);
+            collection.insertOne(user);
+            return "User Added Successfully";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "User Failed to Add";
+        }
     }
 
-    public static ArrayList<User> getAllUsers(){
+    // MARKED AS PRIVATE FOR ACCESS CONTROL REASONS
+    private static ArrayList<User> getAllUsers(){
         return null;
     }
 
-    public static ArrayList<User> getAllUsersById(ObjectId userId){
+    // MARKED AS PRIVATE FOR ACCESS CONTROL REASONS
+    private static ArrayList<User> getAllUsersById(ObjectId userId){
         return null;
+    }
+
+    public static User getUserByUsername(String username){
+        try (MongoClient mongo = MongoClients.create(settings)) {
+            MongoDatabase database = mongo.getDatabase("EvilCommunicatorInator");
+            MongoCollection<User> collection = database.getCollection("Users", User.class);
+            Bson filter = Filters.eq("username", username);
+            return collection.find(filter).first();
+        }  catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static boolean authenticate(String username, String password){
+        if (getUserByUsername(username) == null){
+            return false;
+        }
+        return User.validatePassword(password);
     }
 
     public static String deleteUserById(ObjectId id){
-        return "";
+        try (MongoClient mongo = MongoClients.create(settings)) {
+            MongoDatabase database = mongo.getDatabase("EvilCommunicatorInator");
+            MongoCollection<User> collection = database.getCollection("Users", User.class);
+            Bson filter = Filters.eq("_id", id);
+            collection.deleteOne(filter);
+            return "User Deleted Successfully !";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "User Deletion Failed !";
+        }
     }
 
 }
