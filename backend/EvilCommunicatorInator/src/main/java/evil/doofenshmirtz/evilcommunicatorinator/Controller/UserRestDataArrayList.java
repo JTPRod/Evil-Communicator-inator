@@ -17,6 +17,17 @@ public class UserRestDataArrayList {
         }
     }
 
+    // Returns Authenticated successfully instead of ObjectId for testing purposes, DO NOT USE THIS IN PRODUCTION
+    public static String authenticate(User user) {
+        User temp = users.stream().filter(i -> i.getUser_id().equals(user.getUser_id())).findFirst().orElse(null);
+        if (temp != null) {
+            if (temp.getPassword().equals(user.getPassword())) {
+                return "Authenticated successfully";
+            }
+        }
+        return "Bad Credentials";
+    }
+
     public static ArrayList<User> getAll() {
         return users;
     }

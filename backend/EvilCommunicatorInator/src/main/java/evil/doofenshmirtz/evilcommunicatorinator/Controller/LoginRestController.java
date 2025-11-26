@@ -21,13 +21,24 @@ public class LoginRestController {
             case MONGO:
                 return null;
 
-            case JPA:
-                return null;
-
             default:
                 return null;
         }
 
+    }
+
+    @RequestMapping(path = "/auth", method = RequestMethod.POST)
+    public String auth(@RequestBody User login) {
+        switch (Settings.dbStatus) {
+            case ARRAYLIST:
+                return UserRestDataArrayList.authenticate(login);
+
+            case MONGO:
+                return "";
+
+            default:
+                return null;
+        }
     }
 
     @RequestMapping(path = "", method = RequestMethod.GET)
@@ -37,9 +48,6 @@ public class LoginRestController {
                 return UserRestDataArrayList.getAll();
 
             case MONGO:
-                return null;
-
-            case JPA:
                 return null;
 
             default:
@@ -57,9 +65,6 @@ public class LoginRestController {
             case MONGO:
                 return null;
 
-            case JPA:
-                return null;
-
             default:
                 return null;
         }
@@ -75,9 +80,6 @@ public class LoginRestController {
             case MONGO:
                 return null;
 
-            case JPA:
-                return null;
-
             default:
                 return null;
         }
@@ -91,9 +93,6 @@ public class LoginRestController {
                 return UserRestDataArrayList.deleteById(id);
 
             case MONGO:
-                return null;
-
-            case JPA:
                 return null;
 
             default:

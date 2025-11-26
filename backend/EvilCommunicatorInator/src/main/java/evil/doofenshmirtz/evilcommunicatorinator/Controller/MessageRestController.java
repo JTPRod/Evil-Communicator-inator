@@ -21,9 +21,6 @@ public class MessageRestController {
             case MONGO:
                 return EvilCommunicatorRestDataMongo.addMessage(message);
 
-            case JPA:
-                return null;
-
             default:
                 return null;
         }
@@ -39,9 +36,6 @@ public class MessageRestController {
             case MONGO:
                 return EvilCommunicatorRestDataMongo.getAllMessages();
 
-            case JPA:
-                return null;
-
             default:
                 return null;
         }
@@ -56,9 +50,6 @@ public class MessageRestController {
 
             case MONGO:
                 return EvilCommunicatorRestDataMongo.getMessageById(id);
-
-            case JPA:
-                return null;
 
             default:
                 return null;
@@ -86,9 +77,6 @@ public class MessageRestController {
             case MONGO:
                 return EvilCommunicatorRestDataMongo.updateMessage(message);
 
-            case JPA:
-                return null;
-
             default:
                 return null;
         }
@@ -103,9 +91,6 @@ public class MessageRestController {
 
             case MONGO:
                 return EvilCommunicatorRestDataMongo.deleteMessageById(id);
-
-            case JPA:
-                return null;
 
             default:
                 return null;
