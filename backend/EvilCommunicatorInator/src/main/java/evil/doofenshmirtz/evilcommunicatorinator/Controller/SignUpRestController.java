@@ -16,7 +16,7 @@ public class SignUpRestController {
 
         switch (Settings.dbStatus) {
             case ARRAYLIST:
-                return SignUpRestDataArrayList.add(signUp);
+                return UserRestDataArrayList.add(signUp);
 
             case MONGO:
                 return null;
@@ -34,7 +34,7 @@ public class SignUpRestController {
     public List<User> getAll() {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
-                return SignUpRestDataArrayList.getAll();
+                return UserRestDataArrayList.getAll();
 
             case MONGO:
                 return null;
@@ -52,7 +52,7 @@ public class SignUpRestController {
     public User findById(@PathVariable ObjectId id) {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
-                return SignUpRestDataArrayList.getById(id);
+                return UserRestDataArrayList.getById(id);
 
             case MONGO:
                 return null;
@@ -70,7 +70,7 @@ public class SignUpRestController {
     public User update(@RequestBody User signup) {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
-                return SignUpRestDataArrayList.update(signup);
+                return UserRestDataArrayList.update(signup);
 
             case MONGO:
                 return null;
@@ -88,7 +88,7 @@ public class SignUpRestController {
     public String deleteById(@PathVariable ObjectId id) {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
-                return SignUpRestDataArrayList.deleteById(id);
+                return UserRestDataArrayList.deleteById(id);
 
             case MONGO:
                 return null;
