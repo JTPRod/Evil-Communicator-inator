@@ -12,10 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const payload = { username, password, user_id: 0, bio: '' };
+        const payload = { username, password, bio: '' };
+        const baseUrl = "http://localhost:8080/signup";
 
         try {
-            const res = await fetch('/user', {
+            const res = await fetch(baseUrl ,{
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),

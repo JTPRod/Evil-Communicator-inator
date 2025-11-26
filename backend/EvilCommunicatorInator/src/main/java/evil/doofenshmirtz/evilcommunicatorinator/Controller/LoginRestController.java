@@ -4,14 +4,11 @@ import java.util.List;
 
 import evil.doofenshmirtz.evilcommunicatorinator.Models.User;
 import org.bson.types.ObjectId;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/login")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class LoginRestController {
 
     @RequestMapping(path = "", method = RequestMethod.POST)
@@ -19,7 +16,7 @@ public class LoginRestController {
 
         switch (Settings.dbStatus) {
             case ARRAYLIST:
-                return LoginRestDataArrayList.add(login);
+                return UserRestDataArrayList.add(login);
 
             case MONGO:
                 return null;
@@ -37,7 +34,7 @@ public class LoginRestController {
     public List<User> getAll() {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
-                return LoginRestDataArrayList.getAll();
+                return UserRestDataArrayList.getAll();
 
             case MONGO:
                 return null;
@@ -55,7 +52,7 @@ public class LoginRestController {
     public User findById(@PathVariable ObjectId id) {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
-                return LoginRestDataArrayList.getById(id);
+                return UserRestDataArrayList.getById(id);
 
             case MONGO:
                 return null;
@@ -73,7 +70,7 @@ public class LoginRestController {
     public User update(@RequestBody User login) {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
-                return LoginRestDataArrayList.update(login);
+                return UserRestDataArrayList.update(login);
 
             case MONGO:
                 return null;
@@ -91,7 +88,7 @@ public class LoginRestController {
     public String deleteById(@PathVariable ObjectId id) {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
-                return LoginRestDataArrayList.deleteById(id);
+                return UserRestDataArrayList.deleteById(id);
 
             case MONGO:
                 return null;

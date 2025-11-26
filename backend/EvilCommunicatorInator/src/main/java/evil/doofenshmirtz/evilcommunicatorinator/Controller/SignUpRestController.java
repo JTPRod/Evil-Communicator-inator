@@ -2,16 +2,13 @@ package evil.doofenshmirtz.evilcommunicatorinator.Controller;
 
 import evil.doofenshmirtz.evilcommunicatorinator.Models.User;
 import org.bson.types.ObjectId;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/signup")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class SignUpRestController {
 
     @RequestMapping(path = "", method = RequestMethod.POST)
@@ -19,7 +16,7 @@ public class SignUpRestController {
 
         switch (Settings.dbStatus) {
             case ARRAYLIST:
-                return SignUpRestDataArrayList.add(signUp);
+                return UserRestDataArrayList.add(signUp);
 
             case MONGO:
                 return null;
@@ -37,7 +34,7 @@ public class SignUpRestController {
     public List<User> getAll() {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
-                return SignUpRestDataArrayList.getAll();
+                return UserRestDataArrayList.getAll();
 
             case MONGO:
                 return null;
@@ -55,7 +52,7 @@ public class SignUpRestController {
     public User findById(@PathVariable ObjectId id) {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
-                return SignUpRestDataArrayList.getById(id);
+                return UserRestDataArrayList.getById(id);
 
             case MONGO:
                 return null;
@@ -73,7 +70,7 @@ public class SignUpRestController {
     public User update(@RequestBody User signup) {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
-                return SignUpRestDataArrayList.update(signup);
+                return UserRestDataArrayList.update(signup);
 
             case MONGO:
                 return null;
@@ -91,7 +88,7 @@ public class SignUpRestController {
     public String deleteById(@PathVariable ObjectId id) {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
-                return SignUpRestDataArrayList.deleteById(id);
+                return UserRestDataArrayList.deleteById(id);
 
             case MONGO:
                 return null;
