@@ -20,6 +20,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
@@ -101,17 +102,23 @@ public class EvilCommunicatorRestDataMongo {
         }
     }
 
-    // Users
-    public static String addUser(User user){
+    // TODO: return http response instead of string
+    public static Map<String, Object> addUser(User user){
         user.setPassword(User.hashPassword(user.getPassword()));
         try (MongoClient mongo = MongoClients.create(settings)) {
             MongoDatabase database = mongo.getDatabase("EvilCommunicatorInator");
             MongoCollection<User> collection = database.getCollection("Users", User.class);
             collection.insertOne(user);
-            return "User Added Successfully";
+            return Map.of(
+                    "status", "success",
+                    "message", "User successfully added"
+            );
         } catch (Exception e) {
             e.printStackTrace();
-            return "User Failed to Add";
+            return Map.of(
+                    "status", "error",
+                    "message", "User failed to add"
+            );
         }
     }
 
@@ -137,11 +144,25 @@ public class EvilCommunicatorRestDataMongo {
         }
     }
 
-    public static boolean authenticate(String username, String password){
-        if (getUserByUsername(username) == null){
-            return false;
+    public static Map<String, Object> authenticate(String username, String rawPassword){
+        User  user = getUserByUsername(username);
+        if (user == null){
+            return Map.of(
+                    "status", "error",
+                    "message", "Invalid username or password."
+            );
+        } else if (!User.validatePassword(rawPassword, user.getPassword())) {
+            return Map.of(
+                    "status", "error",
+                    "message", "Invalid username or password."
+            );
         }
-        return User.validatePassword(password);
+
+        return Map.of(
+                "status", "success",
+                "user_id", user.getUser_id().toHexString(),
+                "message", "Login successful. Welcome, " + user.getUsername()
+        );
     }
 
     public static String deleteUserById(ObjectId id){

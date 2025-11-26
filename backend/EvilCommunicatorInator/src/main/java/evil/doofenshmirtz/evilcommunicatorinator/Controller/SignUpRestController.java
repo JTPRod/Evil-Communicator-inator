@@ -5,6 +5,7 @@ import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/signup")
@@ -12,17 +13,14 @@ import java.util.List;
 public class SignUpRestController {
 
     @RequestMapping(path = "", method = RequestMethod.POST)
-    public String create(@RequestBody User signUp) {
+    public Map<String, Object> create(@RequestBody User signUp) {
 
         switch (Settings.dbStatus) {
             case ARRAYLIST:
                 return UserRestDataArrayList.add(signUp);
 
             case MONGO:
-                return null;
-
-            case JPA:
-                return null;
+                return EvilCommunicatorRestDataMongo.addUser(signUp);
 
             default:
                 return null;
@@ -37,9 +35,6 @@ public class SignUpRestController {
                 return UserRestDataArrayList.getAll();
 
             case MONGO:
-                return null;
-
-            case JPA:
                 return null;
 
             default:
@@ -57,9 +52,6 @@ public class SignUpRestController {
             case MONGO:
                 return null;
 
-            case JPA:
-                return null;
-
             default:
                 return null;
         }
@@ -75,9 +67,6 @@ public class SignUpRestController {
             case MONGO:
                 return null;
 
-            case JPA:
-                return null;
-
             default:
                 return null;
         }
@@ -91,9 +80,6 @@ public class SignUpRestController {
                 return UserRestDataArrayList.deleteById(id);
 
             case MONGO:
-                return null;
-
-            case JPA:
                 return null;
 
             default:
