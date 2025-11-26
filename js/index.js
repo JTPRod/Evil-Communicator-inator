@@ -13,10 +13,15 @@ const baseUrl = "http://localhost:8080/message";
 function sendMessage(){
     const user_id = sessionStorage.getItem('user_id') || '0';
     const content = messageInput.value.trim();
+    const payload = {
+        user_id: "000000000000000000000000",
+        content: content,
+        message_id: "000000000000000000000000"
+    };
     fetch(baseUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ user_id, content })
+        body: JSON.stringify(payload)
     });
 }
 

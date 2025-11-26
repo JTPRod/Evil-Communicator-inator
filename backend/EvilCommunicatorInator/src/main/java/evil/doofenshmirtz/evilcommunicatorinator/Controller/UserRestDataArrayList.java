@@ -8,10 +8,10 @@ import java.util.ArrayList;
 public class UserRestDataArrayList {
     private static final ArrayList<User> users = new ArrayList<>();
 
-    public static String add(User user) {
-        if (users.stream().filter(i -> i.getUser_id() == user.getUser_id()).findFirst().orElse(null) == null) {
-            users.add(user);
-            return "User Added";
+    public static String add(User signup) {
+        if (users.stream().filter(i -> i.getUser_id().equals(signup.getUser_id())).findFirst().orElse(null) == null) {
+            users.add(signup);
+            return "Sign Up Added";
         } else {
             return "Id Conflict";
         }
@@ -22,21 +22,21 @@ public class UserRestDataArrayList {
     }
 
     public static User getById(ObjectId id) {
-        return users.stream().filter(user -> user.getUser_id() == id).findFirst().orElse(null);
+        return users.stream().filter(signup -> signup.getUser_id().equals(id)).findFirst().orElse(null);
     }
 
-    public static User update(User user) {
-        User temp_user = users.stream().filter(i -> i.getUser_id() == user.getUser_id()).findFirst().orElse(null);
-        if (temp_user != null) {
-            users.remove(temp_user);
-            users.add(user);
-            return user;
+    public static User update(User signup) {
+        User temp_signup = users.stream().filter(i -> i.getUser_id().equals(signup.getUser_id())).findFirst().orElse(null);
+        if (temp_signup != null) {
+            users.remove(temp_signup);
+            users.add(signup);
+            return signup;
         }
 
         return null;
     }
 
     public static String deleteById(ObjectId id) {
-        return users.removeIf(user -> user.getUser_id() == id) ? "Removed" : "Not Found";
+        return users.removeIf(signup -> signup.getUser_id().equals(id)) ? "Removed" : "Not Found";
     }
 }

@@ -12,8 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        const baseUrl = "http://localhost:8080/login";
+
         try {
-            const res = await fetch('/user');
+            const res = await fetch(baseUrl);
             if (!res.ok) {
                 alert('Unable to reach server');
                 return;
