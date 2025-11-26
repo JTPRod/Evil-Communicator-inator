@@ -8,7 +8,7 @@ public class Settings {
         JPA
     }
 
-    public static DBStatus dbStatus = DBStatus.ARRAYLIST;
+    public static DBStatus dbStatus = DBStatus.MONGO;
     public static String dbURL = "mongodb://localhost:27017";
     public static String username = "root";
     public static String password = "abc123";
