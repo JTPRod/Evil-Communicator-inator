@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
+
         const username = document.getElementById('username').value.trim();
         const password = document.getElementById('password').value;
 
@@ -12,32 +13,39 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const baseUrl = "http://localhost:8080/login/auth";
+        const url = "http://localhost:8080/login/auth";
         const payload = { username, password };
 
         try {
-            const res = await fetch(baseUrl, {
+            const res = await fetch(url, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
+
             if (!res.ok) {
-                alert('Unable to reach server');
+                alert("Unable to reach server");
                 return;
             }
-            const users = await res.json();
-            const found = users.find(u => u.username === username && u.password === password);
-            if (found) {
-                sessionStorage.setItem('username', found.username);
-                sessionStorage.setItem('user_id', String(found.userId || 0));
-                window.location.href = '../index.html';
+
+            const data = await res.json();
+            
+            // The API ALWAYS returns { message, status, maybe user_id }
+            if (data.status === "success") {
+                // store user_id for persistent login
+                sessionStorage.setItem("user_id", data.user_id);
+                sessionStorage.setItem("username", username);
+
+                alert(data.message);
+
+                window.location.href = "../index.html";
             } else {
-                alert('Invalid credentials');
+                // signup/login failure
+                alert(data.message);
             }
+
         } catch (err) {
-            alert('Network error: ' + err);
+            alert("Network error: " + err);
         }
     });
 });
