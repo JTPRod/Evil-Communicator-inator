@@ -12,10 +12,17 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const baseUrl = "http://localhost:8080/login";
+        const baseUrl = "http://localhost:8080/login/auth";
+        const payload = { username, password };
 
         try {
-            const res = await fetch(baseUrl);
+            const res = await fetch(baseUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
             if (!res.ok) {
                 alert('Unable to reach server');
                 return;
