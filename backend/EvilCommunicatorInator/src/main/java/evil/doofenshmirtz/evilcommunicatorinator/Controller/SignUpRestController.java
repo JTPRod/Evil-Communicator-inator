@@ -21,9 +21,6 @@ public class SignUpRestController {
             case MONGO:
                 return null;
 
-            case JPA:
-                return null;
-
             default:
                 return null;
         }
@@ -37,9 +34,6 @@ public class SignUpRestController {
                 return UserRestDataArrayList.getAll();
 
             case MONGO:
-                return null;
-
-            case JPA:
                 return null;
 
             default:
@@ -57,9 +51,6 @@ public class SignUpRestController {
             case MONGO:
                 return null;
 
-            case JPA:
-                return null;
-
             default:
                 return null;
         }
@@ -75,8 +66,6 @@ public class SignUpRestController {
             case MONGO:
                 return null;
 
-            case JPA:
-                return null;
 
             default:
                 return null;
@@ -93,8 +82,6 @@ public class SignUpRestController {
             case MONGO:
                 return null;
 
-            case JPA:
-                return null;
 
             default:
                 return null;
