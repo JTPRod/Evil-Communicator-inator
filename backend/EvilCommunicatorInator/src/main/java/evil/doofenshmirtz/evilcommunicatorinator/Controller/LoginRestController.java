@@ -1,6 +1,7 @@
 package evil.doofenshmirtz.evilcommunicatorinator.Controller;
 
 import java.util.List;
+import java.util.Map;
 
 import evil.doofenshmirtz.evilcommunicatorinator.Models.User;
 import org.bson.types.ObjectId;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class LoginRestController {
 
     @RequestMapping(path = "", method = RequestMethod.POST)
-    public String create(@RequestBody User login) {
+    public Map<String, Object> create(@RequestBody User login) {
 
         switch (Settings.dbStatus) {
             case ARRAYLIST:
@@ -28,13 +29,13 @@ public class LoginRestController {
     }
 
     @RequestMapping(path = "/auth", method = RequestMethod.POST)
-    public String auth(@RequestBody User login) {
+    public Map<String, Object> auth(@RequestBody User login) {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
                 return UserRestDataArrayList.authenticate(login);
 
             case MONGO:
-                return "";
+                return EvilCommunicatorRestDataMongo.authenticate(login.getUsername(), login.getPassword());
 
             default:
                 return null;

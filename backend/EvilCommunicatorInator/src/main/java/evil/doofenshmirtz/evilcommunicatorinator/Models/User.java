@@ -28,8 +28,8 @@ public class User implements Serializable {
         return BCrypt.hashpw(password, BCrypt.gensalt(12));
     }
 
-    public static boolean validatePassword(String password) {
-        return BCrypt.checkpw(password, BCrypt.gensalt(12));
+    public static boolean validatePassword(String raw, String hashed) {
+        return BCrypt.checkpw(raw, hashed);
     }
 
     public String getUsername() {
