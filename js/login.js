@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        let base = ""
+
         const url = "http://localhost:8080/login/auth";
         const payload = { username, password };
 

@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const text = await res.text();
 
             // backend returns plain text like "User Added" or an error string
-            if (res.ok && (text.includes('Added') || text.length === 0)) {
+            if (res.ok && (text.includes('added'))) {
                 sessionStorage.setItem('username', username);
                 // we don't know backend-assigned id; store 0 as placeholder
                 sessionStorage.setItem('user_id', '0');
