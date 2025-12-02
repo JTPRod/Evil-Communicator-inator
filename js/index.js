@@ -8,15 +8,14 @@ function appendMessage(user, content) {
     messages.value += `\n${user}: ${content}`;
 }
 
-const baseUrl = "http://localhost:8080/message";
+const baseUrl = "http://10.10.26.142:8080/message";
 
 function sendMessage(){
-    const user_id = sessionStorage.getItem('user_id') || '0';
+    const user_id = sessionStorage.getItem('user_id') || '0000000000000000000000000';
     const content = messageInput.value.trim();
     const payload = {
-        user_id: "000000000000000000000000",
+        user_id: user_id,
         content: content,
-        message_id: "000000000000000000000000"
     };
     fetch(baseUrl, {
         method: 'POST',
@@ -33,10 +32,10 @@ sendButton.addEventListener('click', async () => {
     //const user_id = Number(sessionStorage.getItem('user_id') || 000000000000000000000000);
 
     // create message payload compatible with backend Message model
+    const user_id = sessionStorage.getItem('user_id') || '000000000000000000000000';
     const payload = {
-        user_id: "000000000000000000000000",
+        user_id: user_id,
         content: content,
-        message_id: "000000000000000000000000"
     };
 
     try {

@@ -63,4 +63,45 @@ public class User implements Serializable {
     public void setBio(String bio) {
         this.bio = bio;
     }
+
+    public String checkPasswordStrength(String password) {
+        int upperChars = 0;
+        int lowerChars = 0;
+        int specialChars = 0;
+        int digits = 0;
+        int length = password.length();
+
+        StringBuilder result = new StringBuilder();
+
+        //min length
+        if (length < 8) {
+            return "Password must be at least 8 characters long.";
+        }
+
+        //character types
+        for (int i = 0; i < length; i++) {
+            char ch = password.charAt(i);
+            if (Character.isUpperCase(ch)) upperChars++;
+            else if (Character.isLowerCase(ch)) lowerChars++;
+            else if (Character.isDigit(ch)) digits++;
+            else specialChars++;
+        }
+
+        //strength
+        if (upperChars > 0 && lowerChars > 0 && digits > 0 && specialChars > 0) {
+            return "Password strength: Strong";
+        }
+        else if ((upperChars > 0 || lowerChars > 0) && digits > 0 && length >= 10) {
+            return "Password strength: Medium";
+        }
+        else {
+            result.append("Password strength: Weak\n");
+            if (upperChars == 0) result.append("  - Missing uppercase character.\n");
+            if (lowerChars == 0) result.append("  - Missing lowercase character.\n");
+            if (digits == 0) result.append("  - Missing digit.\n");
+            if (specialChars == 0) result.append("  - Missing special character. (!, @, #, $, %, ^, &, *, (, ), -, _, +, =, [, ], {, }, |, ;, :, ', \", ,, ., /, ?, ~)\n");
+        }
+
+        return result.toString();
+    }
 }
