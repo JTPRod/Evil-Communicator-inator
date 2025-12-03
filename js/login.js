@@ -13,9 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        let base = ""
+        let base = sessionStorage.getItem('serverID');
 
-        const url = "http://localhost:8080/login/auth";
+        const url = `http://${base}/login/auth`;
+        console.log("Login URL: " + url);
         const payload = { username, password };
 
         try {
