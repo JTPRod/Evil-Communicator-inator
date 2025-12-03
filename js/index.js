@@ -8,7 +8,7 @@ function appendMessage(user, content) {
     messages.value += `\n${user}: ${content}`;
 }
 
-const baseUrl = "http://10.10.26.142:8080/message";
+const baseUrl = "http://10.116.4.201:8080/message";
 
 function sendMessage(){
     const user_id = sessionStorage.getItem('user_id') || '0000000000000000000000000';

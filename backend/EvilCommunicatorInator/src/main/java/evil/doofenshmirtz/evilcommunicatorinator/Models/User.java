@@ -6,6 +6,7 @@ import org.bson.types.ObjectId;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.Serializable;
+import java.util.Map;
 
 public class User implements Serializable {
     @BsonId
@@ -64,19 +65,31 @@ public class User implements Serializable {
         this.bio = bio;
     }
 
-    public String checkPasswordStrength(String password) {
+    public static Map<String, Object> checkPasswordStrength(String password) {
+        StringBuilder result = new StringBuilder();
+
+        //no null passwords
+        if (password == null || password.isEmpty()) {
+            return Map.of(
+                    "status", "error",
+                    "message", "Password cannot be empty."
+            );
+        }
+
+        int length = password.length();
+
+        //min length
+        if (length < 8) {
+            return Map.of(
+                    "status", "error",
+                    "message", "Password has to be at least 8 characters."
+            );
+        }
+
         int upperChars = 0;
         int lowerChars = 0;
         int specialChars = 0;
         int digits = 0;
-        int length = password.length();
-
-        StringBuilder result = new StringBuilder();
-
-        //min length
-        if (length < 8) {
-            return "Password must be at least 8 characters long.";
-        }
 
         //character types
         for (int i = 0; i < length; i++) {
@@ -87,21 +100,31 @@ public class User implements Serializable {
             else specialChars++;
         }
 
-        //strength
+        //strength checker
         if (upperChars > 0 && lowerChars > 0 && digits > 0 && specialChars > 0) {
-            return "Password strength: Strong";
+            return Map.of(
+                    "status", "success",
+                    "message", "Password strength: Strong."
+            );
         }
         else if ((upperChars > 0 || lowerChars > 0) && digits > 0 && length >= 10) {
-            return "Password strength: Medium";
+            return Map.of(
+                    "status", "success",
+                    "message", "Password strength: Medium."
+            );
         }
         else {
-            result.append("Password strength: Weak\n");
-            if (upperChars == 0) result.append("  - Missing uppercase character.\n");
-            if (lowerChars == 0) result.append("  - Missing lowercase character.\n");
-            if (digits == 0) result.append("  - Missing digit.\n");
-            if (specialChars == 0) result.append("  - Missing special character. (!, @, #, $, %, ^, &, *, (, ), -, _, +, =, [, ], {, }, |, ;, :, ', \", ,, ., /, ?, ~)\n");
-        }
+            StringBuilder missing = new StringBuilder();
 
-        return result.toString();
+            if (upperChars == 0) missing.append("\n- Missing uppercase character.");
+            if (lowerChars == 0) missing.append("\n- Missing lowercase character.");
+            if (digits == 0) missing.append("\n- Missing digit.");
+            if (specialChars == 0) missing.append("\n- Missing special character.");
+
+            return Map.of(
+                    "status", "error",
+                    "message", "Password strength: Weak." + missing
+            );
+        }
     }
 }

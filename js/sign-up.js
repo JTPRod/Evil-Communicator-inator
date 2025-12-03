@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const payload = { username, password, bio: '' };
-        const baseUrl = "http://localhost:8080/signup";
+        const baseUrl = "http://10.116.4.201:8080/signup";
 
         try {
             const res = await fetch(baseUrl ,{
