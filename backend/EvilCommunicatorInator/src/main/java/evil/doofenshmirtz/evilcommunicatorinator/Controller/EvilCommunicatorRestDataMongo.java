@@ -103,22 +103,28 @@ public class EvilCommunicatorRestDataMongo {
     }
 
     // TODO: return http response instead of string
-    public static Map<String, Object> addUser(User user){
-        user.setPassword(User.hashPassword(user.getPassword()));
-        try (MongoClient mongo = MongoClients.create(settings)) {
-            MongoDatabase database = mongo.getDatabase("EvilCommunicatorInator");
-            MongoCollection<User> collection = database.getCollection("Users", User.class);
-            collection.insertOne(user);
-            return Map.of(
-                    "status", "success",
-                    "message", "User successfully added"
-            );
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Map.of(
-                    "status", "error",
-                    "message", "User failed to add"
-            );
+    public static Map<String, Object> addUser(User user) {
+            Map<String, Object> strength = User.checkPasswordStrength(user.getPassword());
+
+            if ("error".equals(strength.get("status"))) {
+                return strength;
+        } else {
+            user.setPassword(User.hashPassword(user.getPassword()));
+            try (MongoClient mongo = MongoClients.create(settings)) {
+                MongoDatabase database = mongo.getDatabase("EvilCommunicatorInator");
+                MongoCollection<User> collection = database.getCollection("Users", User.class);
+                collection.insertOne(user);
+                return Map.of(
+                        "status", "success",
+                        "message", "User successfully added"
+                );
+            } catch (Exception e) {
+                e.printStackTrace();
+                return Map.of(
+                        "status", "error",
+                        "message", "User failed to add"
+                );
+            }
         }
     }
 
