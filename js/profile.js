@@ -14,7 +14,7 @@
         // try to fetch existing bio from backend
         if (user_id > 0) {
             try {
-                const res = await fetch('/user');
+                const res = await fetch('/user');q
                 if (res.ok) {
                     const users = await res.json();
                     const me = users.find(u => u.user_id === user_id || u.username === username);
