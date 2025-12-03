@@ -6,3 +6,11 @@
     padding: 20px;
     margin: 50px auto;
 }
+.successpage {
+    background-color: #d6cef0;
+    justify-self: center;
+    align-items: center;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 50px auto;
+}
