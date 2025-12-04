@@ -8,7 +8,7 @@ function appendMessage(user, content) {
     messages.value += `\n${user}: ${content}`;
 }
 
-const ip = "http://localhost:8080"
+const ip = "http://" + "localhost:8080"
 const baseUrl = `${ip}/message`;
 
 async function fetchAndDisplayMessages(url) {
@@ -81,6 +81,26 @@ async function fetchUser(url, id) {
 
 }
 
+
+async function findHelldiver() {
+    const idBox = document.getElementById('txtFindID');
+    // id = idBox.value;
+    console.log(`${baseUrl}/${idBox.value}`);
+    try {
+        const response = await fetch(`${baseUrl}/${idBox.value}`, {
+            method: 'GET'
+        });
+        if (!response.ok) {
+            throw new Error('Server returned status ' + response.status);
+        }
+        const helldiver = await response.json();
+        renderList(helldiver);
+        showMessage('listMessage', 'Helldiver successfully found.');
+    } catch (err) {
+        renderList([]);
+        showMessage('listMessage', 'Error loading helldivers: ' + err.message, true);
+    }
+}
 
 sendButton.addEventListener('click', async () => {
     const content = messageInput.value.trim();
