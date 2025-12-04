@@ -10,6 +10,7 @@ function appendMessage(user, content) {
 let base = sessionStorage.getItem('serverID');
 const ip = "http://" + base;
 const baseUrl = `${ip}/message`;
+fetchAndDisplayMessages(ip);
 
 async function fetchAndDisplayMessages(url) {
     const userCache = {};
