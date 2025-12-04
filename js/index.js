@@ -12,6 +12,12 @@ const ip = "http://" + base;
 const baseUrl = `${ip}/message`;
 fetchAndDisplayMessages(ip);
 
+const events = new EventSource(`${baseUrl}/events`);
+
+events.addEventListener("new-message", () => {
+    fetchAndDisplayMessages();
+});
+
 async function fetchAndDisplayMessages(url) {
     const userCache = {};
 
