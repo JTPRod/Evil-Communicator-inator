@@ -16,7 +16,8 @@ public class User implements Serializable {
     private String password;
     private String bio;
 
-    public User() {}
+    public User() {
+    }
 
     public User(String username, String password, ObjectId user_id, String bio) {
         this.username = username;
@@ -65,9 +66,41 @@ public class User implements Serializable {
         this.bio = bio;
     }
 
-    public static Map<String, Object> checkPasswordStrength(String password) {
-        StringBuilder result = new StringBuilder();
+    public static Map<String, Object> checkUsername(String username) {
+        //no null usernames
+        if (username == null || username.isEmpty()) {
+            return Map.of(
+                    "status", "error",
+                    "message", "Username cannot be empty."
+            );
+        }
 
+        int length = username.length();
+
+        //min length
+        if (length < 2) {
+            return Map.of(
+                    "status", "error",
+                    "message", "Username has to be at least 2 characters."
+            );
+        }
+
+        //max length
+        if (length > 20) {
+            return Map.of(
+                    "status", "error",
+                    "message", "Username has to be fewer than 20 characters."
+            );
+        }
+
+        //valid!! yayy!
+        return Map.of(
+                    "status", "success",
+                    "message", "Username valid, checking for duplicates."
+            );
+    }
+
+    public static Map<String, Object> checkPasswordStrength(String password) {
         //no null passwords
         if (password == null || password.isEmpty()) {
             return Map.of(
