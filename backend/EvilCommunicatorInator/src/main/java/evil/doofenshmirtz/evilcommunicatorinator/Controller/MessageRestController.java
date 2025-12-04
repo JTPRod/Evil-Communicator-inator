@@ -5,11 +5,27 @@ import java.util.List;
 import evil.doofenshmirtz.evilcommunicatorinator.Models.Message;
 import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @RestController
 @RequestMapping("/message")
 //@CrossOrigin(origins = "*")
 public class MessageRestController {
+
+    private final SseEmitter emitter = new SseEmitter(0L);
+
+    @GetMapping("/events")
+    public SseEmitter streamMessages() {
+        return emitter;
+    }
+
+    public void notifyNewMessage() {
+        try {
+            emitter.send(SseEmitter.event().name("new-message").data("update"));
+        } catch (Exception e) {
+            // Maybe send message on client disconnetc
+        }
+    }
 
     @RequestMapping(path = "", method = RequestMethod.POST)
     public String create(@RequestBody Message message) {
@@ -19,7 +35,9 @@ public class MessageRestController {
                 return MessageRestDataArrayList.add(message);
 
             case MONGO:
-                return EvilCommunicatorRestDataMongo.addMessage(message);
+                String returnMsg = EvilCommunicatorRestDataMongo.addMessage(message);
+                notifyNewMessage();
+                return returnMsg;
 
             default:
                 return null;
