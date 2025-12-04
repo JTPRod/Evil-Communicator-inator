@@ -150,6 +150,18 @@ public class EvilCommunicatorRestDataMongo {
         }
     }
 
+    public static User getUserById(ObjectId id){
+        try (MongoClient mongo = MongoClients.create(settings)) {
+            MongoDatabase database = mongo.getDatabase("EvilCommunicatorInator");
+            MongoCollection<User> collection = database.getCollection("Users", User.class);
+            Bson filter = Filters.eq("_id", id);
+            return collection.find(filter).first();
+        }  catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static Map<String, Object> authenticate(String username, String rawPassword){
         User  user = getUserByUsername(username);
         if (user == null){

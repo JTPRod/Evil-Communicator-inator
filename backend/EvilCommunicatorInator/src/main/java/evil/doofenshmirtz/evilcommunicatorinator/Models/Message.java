@@ -3,13 +3,17 @@ package evil.doofenshmirtz.evilcommunicatorinator.Models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import java.io.Serializable;
 
 public class Message implements Serializable {
     @BsonId
     @JsonProperty("message_id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId message_id;
+    @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId user_id;
     private String content;
 

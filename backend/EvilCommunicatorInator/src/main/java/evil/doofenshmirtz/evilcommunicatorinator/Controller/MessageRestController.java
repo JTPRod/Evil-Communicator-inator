@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/message")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+//@CrossOrigin(origins = "*")
 public class MessageRestController {
 
     @RequestMapping(path = "", method = RequestMethod.POST)

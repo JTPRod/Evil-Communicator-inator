@@ -1,6 +1,8 @@
 package evil.doofenshmirtz.evilcommunicatorinator.Models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 import org.mindrot.jbcrypt.BCrypt;
@@ -11,6 +13,7 @@ import java.util.Map;
 public class User implements Serializable {
     @BsonId
     @JsonProperty("user_id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId user_id;
     private String username;
     private String password;
