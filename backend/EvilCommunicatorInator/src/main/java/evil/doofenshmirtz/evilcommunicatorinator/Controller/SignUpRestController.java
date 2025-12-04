@@ -9,7 +9,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/signup")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+//@CrossOrigin(origins = "*")
 public class SignUpRestController {
 
     @RequestMapping(path = "", method = RequestMethod.POST)
