@@ -15,7 +15,8 @@ fetchAndDisplayMessages(ip);
 const events = new EventSource(`${baseUrl}/events`);
 
 events.addEventListener("new-message", () => {
-    fetchAndDisplayMessages();
+    console.log("FOK");
+    fetchAndDisplayMessages(ip);
 });
 
 async function fetchAndDisplayMessages(url) {

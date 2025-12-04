@@ -14,7 +14,7 @@ public class MessageRestController {
 
     private final SseEmitter emitter = new SseEmitter(0L);
 
-    @GetMapping("/events")
+    @RequestMapping(path = "/events", method = RequestMethod.GET)
     public SseEmitter streamMessages() {
         return emitter;
     }
