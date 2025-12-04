@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/login")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+//@CrossOrigin(origins = "*")
 public class LoginRestController {
 
     @RequestMapping(path = "", method = RequestMethod.POST)
@@ -64,7 +64,7 @@ public class LoginRestController {
                 return UserRestDataArrayList.getById(id);
 
             case MONGO:
-                return null;
+                return EvilCommunicatorRestDataMongo.getUserById(id);
 
             default:
                 return null;
