@@ -1,0 +1,116 @@
+on success for login, the server will return a Json including status, message, userid, and a login token:
+
+success:
+{
+  "status": "success",
+  "message": "Login successful. Welcome, <username>"
+  "user_id": "67c18a00f12a26ef4b112233",
+  "token": "<JWT token>"
+}
+
+You will cache user_id and token, token for authentication and user_id for ease of generating messages
+
+failure:
+{
+  "status": "error",
+  "message": "Invalid username or password. Try again."
+}
+
+
+failure will not have a user_id and token pair, so if you detect an error status, you need to make sure that the function ends there
+
+very rough pseudo code:
+function authenticate() {
+  payload = {"username": "Sorcielle", "password": "123abc"}
+  let response = request.send(baseURL, payload);
+  response_box.setText(response.message);
+
+  if (response.status == "error") {
+  return;
+  } else {
+  user_id.setStorage(response.user_id);
+  token.setStorage(response.token);
+  // redirect to success page
+  }
+}
+doing this cause we need to return several things on login and y'all need to know what format that'll be in
+also not fully relevant on the front-end, but I will be formatting and sending these as maps instead of Arraylist<Object>. Turns out that's far better for our situation. Not gonna port over the rest of the application, just using maps for the new bit
+
+are y'all ok with refactoring signup to also use this http response ? It would look like this pretty much every time:
+
+{
+  "status": "success",
+  "message": "User <username> created successfully.",
+  "user_id": "000000000000000000000000"
+}
+
+You do not need to store anything from this response, just display the message 
+
+
+If you go back to that web Dev class we took there's an assignment we did that would help you
+If you don't have it I can send you mine
+The weather app notably
+
+If y'all wanna take a break from the frontend btw thoughts on compiling all of these blurbs I keep sending into a docs section for our API ?
+
+If not, I can do that when I finish the mongo hooks. And when I do finish it I'll tell you exactly what servlet hook to access, what to send, and what it will return one last time
+
+
+Is what Adrian recommend we do last class.. make a folder in the root of the repository called docs and store a bunch of text files that document how our program works. Kinda like the messages I keep sending about what inputs/outputs shoud look like, how we name variables, etc
+
+It's useful in case someone forgets something like how user id should be named in the program.. and useful for other people looking at our repo. It's absolutely optional though
+If we don't implement it for PRO Ill probably implement it at the end myself so that I can understand the program still in 3+ months
+
+For the purposes of putting this on a portfolio
+Cause this project would look pretty good on one
+
+Confirmed, back-end authentication is working. Here's all the info you need to know about it for logging in:
+Screw using a special token, we're just gonna use the user_id for authentication/persistent login for now
+When you wanna login, send a POST request to /login/auth (make sure that's using the same baseURL format we've been using). It should look the exact same as the sign-up payload:
+{
+  "username": "Sorcielle",
+  "password": "123abc"
+}
+
+
+On return for signup you will receive a JSON response that looks like the following
+{
+    "message": "User successfully added",
+    "status": "success"
+}
+
+
+On return for login you will receive a JSON response that looks like the following:
+{
+    "message": "Login successful. Welcome, Sorcielle",
+    "status": "success",
+    "user_id": "692782b2730b6f8edcd49fa3"
+}
+
+
+You should display the message in a text box to let the user know if it succeded. On failure, the signup json will look like:
+{
+    "message": "User failed to add",
+    "status": "error"
+}
+
+
+On failure, the login will display:
+{
+    "message": "Invalid username or password.",
+    "status": "error"
+}
+
+
+These changes are currently on the mongo-auth branch, I am making a pull request and assigning J so that it can be merged into main. After it is merged, make a new branch off of main and start working on that
+
+In order to test everything with the database, do the following:
+Download mongo through docker (use this command, I told Clover the wrong one yesterday): 
+docker pull mongodb/mongodb-community-server:latest
+Start the mongo instance: 
+ docker run --name mongodb -p 27017:27017 -d mongodb/mongodb-community-server:latest
+Download mongodb compass
+Connect to the mongo instance (should be the default values that it shows)
+Right click connection, make a new database called EvilCommunicatorInator  and a new collection called Messages
+Right click db, make another collection called Users
+Go into settings and change the active database from JSON to Mongo
