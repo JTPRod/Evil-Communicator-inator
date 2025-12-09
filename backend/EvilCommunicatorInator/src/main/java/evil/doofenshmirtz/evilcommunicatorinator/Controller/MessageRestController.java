@@ -29,15 +29,12 @@ public class MessageRestController {
 
     @RequestMapping(path = "", method = RequestMethod.POST)
     public String create(@RequestBody Message message) {
-        //check for profanity
-        Message filteredMessage = Message.checkProfanity(message);
-
         switch (Settings.dbStatus) {
             case ARRAYLIST:
-                return MessageRestDataArrayList.add(filteredMessage);
+                return MessageRestDataArrayList.add(message);
 
             case MONGO:
-                String returnMsg = EvilCommunicatorRestDataMongo.addMessage(filteredMessage);
+                String returnMsg = EvilCommunicatorRestDataMongo.addMessage(message);
                 notifyNewMessage();
                 return returnMsg;
 
