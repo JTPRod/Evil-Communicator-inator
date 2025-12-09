@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class Message implements Serializable {
     @BsonId
@@ -15,7 +17,7 @@ public class Message implements Serializable {
     private ObjectId message_id;
     @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId user_id;
-    private String content;
+    private static String content;
 
     public Message() {}
 
@@ -24,7 +26,7 @@ public class Message implements Serializable {
         this.user_id = user_id;
     }
 
-    public String getContent() {
+    public static String getContent() {
         return content;
     }
 
@@ -46,5 +48,39 @@ public class Message implements Serializable {
 
     public void setMessage_id(ObjectId message_id) {
         this.message_id = message_id;
+    }
+
+    public static Message checkProfanity(Message message) {
+        String input = message.getContent();
+
+// Normalize leetspeak
+        input = input.replace("1","i")
+                .replace("!","i")
+                .replace("3","e")
+                .replace("4","a")
+                .replace("@","a")
+                .replace("5","s")
+                .replace("7","t")
+                .replace("0","o")
+                .replace("9","g")
+                .replace("8","b")
+                .replace("+","t");
+
+//profanity filter
+        List<String> badWords = List.of(
+                "foo",
+                "bar",
+                "badword"
+        );
+
+        for (String bad : badWords) {
+            input = input.replaceAll(
+                    "(?i)\\b" + Pattern.quote(bad) + "\\b",
+                    "*".repeat(bad.length())
+            );
+        }
+
+        message.setContent(input);
+
     }
 }
