@@ -34,6 +34,7 @@ public class MessageRestController {
                 return MessageRestDataArrayList.add(message);
 
             case MONGO:
+                message.setContent(Message.filterProfanity(message.getContent()));
                 String returnMsg = EvilCommunicatorRestDataMongo.addMessage(message);
                 notifyNewMessage();
                 return returnMsg;
