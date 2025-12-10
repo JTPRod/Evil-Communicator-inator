@@ -73,13 +73,13 @@ public class LoginRestController {
     }
 
     @RequestMapping(path = "", method = RequestMethod.PUT)
-    public User update(@RequestBody User login) {
+    public String update(@RequestBody User login) {
         switch (Settings.dbStatus) {
             case ARRAYLIST:
-                return UserRestDataArrayList.update(login);
+//                return UserRestDataArrayList.update(login);
 
             case MONGO:
-                return null;
+                return EvilCommunicatorRestDataMongo.updateUserById(login);
 
             default:
                 return null;
