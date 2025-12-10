@@ -29,7 +29,6 @@ public class MessageRestController {
 
     @RequestMapping(path = "", method = RequestMethod.POST)
     public String create(@RequestBody Message message) {
-
         switch (Settings.dbStatus) {
             case ARRAYLIST:
                 return MessageRestDataArrayList.add(message);

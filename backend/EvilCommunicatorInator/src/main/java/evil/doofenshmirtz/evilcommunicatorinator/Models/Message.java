@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class Message implements Serializable {
     @BsonId
@@ -15,7 +17,7 @@ public class Message implements Serializable {
     private ObjectId message_id;
     @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId user_id;
-    private String content;
+    private static String content;
 
     public Message() {}
 
@@ -24,7 +26,7 @@ public class Message implements Serializable {
         this.user_id = user_id;
     }
 
-    public String getContent() {
+    public static String getContent() {
         return content;
     }
 
