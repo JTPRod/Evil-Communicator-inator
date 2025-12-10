@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         let base = sessionStorage.getItem('serverID');
         const payload = { username, password, bio: '' };
-        const url = `http://${base}/signup`;
+        const url = '/signup';
         console.log("Signup URL: " + url);
         try {
             const res = await fetch(url ,{
