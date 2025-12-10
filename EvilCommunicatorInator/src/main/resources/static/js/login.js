@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let base = sessionStorage.getItem('serverID');
 
-        const url = `http://${base}/login/auth`;
+        const url = '/login/auth';
         console.log("Login URL: " + url);
         const payload = { username, password };
 

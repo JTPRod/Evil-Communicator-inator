@@ -8,7 +8,7 @@ function appendMessage(user, content) {
     messages.value += `\n${user}: ${content}`;
 }
 let base = sessionStorage.getItem('serverID');
-const ip = "http://" + base;
+const ip = "";
 const baseUrl = `${ip}/message`;
 fetchAndDisplayMessages(ip);
 
