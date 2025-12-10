@@ -6,8 +6,6 @@ import com.mongodb.MongoClientSettings;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Filters.*;
-import com.mongodb.client.model.Updates;
-import com.mongodb.client.result.UpdateResult;
 import evil.doofenshmirtz.evilcommunicatorinator.Models.Message;
 import evil.doofenshmirtz.evilcommunicatorinator.Models.User;
 import org.bson.Document;
@@ -209,28 +207,6 @@ public class EvilCommunicatorRestDataMongo {
         } catch (Exception e) {
             e.printStackTrace();
             return "User Deletion Failed !";
-        }
-    }
-
-    public static String updateUserById(User user) {
-        try (MongoClient mongo = MongoClients.create(settings)) {
-            MongoDatabase database = mongo.getDatabase("EvilCommunicatorInator");
-            MongoCollection<User> collection = database.getCollection("Users", User.class);
-
-            Bson filter = Filters.eq("_id", user.getUser_id());
-            Bson update = Updates.set("bio", user.getBio());
-
-            UpdateResult result = collection.updateOne(filter, update);
-
-            if (result.getMatchedCount() == 0) {
-                return "No user found with ID: " + user.getUser_id();
-            }
-
-            return "User updated successfully!";
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "User update failed!";
         }
     }
 
