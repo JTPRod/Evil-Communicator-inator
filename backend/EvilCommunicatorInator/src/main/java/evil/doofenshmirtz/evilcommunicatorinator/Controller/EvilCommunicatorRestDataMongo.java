@@ -223,7 +223,7 @@ public class EvilCommunicatorRestDataMongo {
             UpdateResult result = collection.updateOne(filter, update);
 
             if (result.getMatchedCount() == 0) {
-                return "No user found with that ID.";
+                return "No user found with ID: " + user.getUser_id();
             }
 
             return "User updated successfully!";
