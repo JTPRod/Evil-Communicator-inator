@@ -12,21 +12,23 @@ const ip = "";
 const baseUrl = `${ip}/message`;
 fetchAndDisplayMessages(ip);
 
-const events = new EventSource(`${baseUrl}/events`);
+const events = new EventSource('/message/events');
 
 events.addEventListener("new-message", () => {
-    console.log("FOK");
+    console.warn("Sending update");
     fetchAndDisplayMessages(ip);
 });
 
 async function fetchAndDisplayMessages(url) {
+    console.warn("Updating messages");
     const userCache = {};
 
     const msgResponse = await fetch(`${url}/message`);
 
     if (!msgResponse.ok) {
         // console.log(`${url}/message`);
-        throw new Error(`ERROR! Status: ${msgResponse.status}`);
+        console.warn(`Could not fetch message from ${url}`);
+        return;
     }
 
     const messageList = await msgResponse.json();
@@ -55,6 +57,7 @@ async function fetchAndDisplayMessages(url) {
     const lines = await Promise.all(processingPromises);
 
     messages.value = lines.join('\n');
+    messages.scrollTop = messages.scrollHeight;
 }
 
 async function fetchUser(url, id) {
@@ -119,6 +122,14 @@ sendButton.addEventListener('click', async () => {
 
     // create message payload compatible with backend Message model
     const user_id = sessionStorage.getItem('user_id') || '000000000000000000000000';
+
+    if (
+        user_id === '000000000000000000000000' ||
+        username === 'Anonymous'
+    ) {
+        alert("You must sign in before sending messages.");
+        return; // <-- IMPORTANT: stops execution so NO fetch happens
+    }
     const payload = {
         user_id: user_id,
         content: content,
