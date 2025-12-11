@@ -8,14 +8,10 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import java.io.IOException;
 import java.io.Serializable;
-<<<<<<< HEAD:EvilCommunicatorInator/src/main/java/evil/doofenshmirtz/evilcommunicatorinator/Models/Message.java
-import java.util.List;
-=======
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
 import java.util.regex.Matcher;
->>>>>>> 479e399 (Add profanity filtering with leet and conjoined word compatability):backend/EvilCommunicatorInator/src/main/java/evil/doofenshmirtz/evilcommunicatorinator/Models/Message.java
 import java.util.regex.Pattern;
 
 public class Message implements Serializable {
@@ -25,13 +21,9 @@ public class Message implements Serializable {
     private ObjectId message_id;
     @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId user_id;
-<<<<<<< HEAD:EvilCommunicatorInator/src/main/java/evil/doofenshmirtz/evilcommunicatorinator/Models/Message.java
-    private static String content;
-=======
     private String content;
     private static final Set<String> swears = new HashSet<>();
     private static final Set<String> allowlist = new HashSet<>();
->>>>>>> 479e399 (Add profanity filtering with leet and conjoined word compatability):backend/EvilCommunicatorInator/src/main/java/evil/doofenshmirtz/evilcommunicatorinator/Models/Message.java
 
     public Message() {}
 
@@ -40,9 +32,6 @@ public class Message implements Serializable {
         this.user_id = user_id;
     }
 
-<<<<<<< HEAD:EvilCommunicatorInator/src/main/java/evil/doofenshmirtz/evilcommunicatorinator/Models/Message.java
-    public static String getContent() {
-=======
     public static void initialiseProfanity() {
         try {
             URI url = new URI("https://raw.githubusercontent.com/censor-text/profanity-list/refs/heads/main/list/en.txt");
@@ -135,7 +124,6 @@ public class Message implements Serializable {
     }
 
     public String getContent() {
->>>>>>> 479e399 (Add profanity filtering with leet and conjoined word compatability):backend/EvilCommunicatorInator/src/main/java/evil/doofenshmirtz/evilcommunicatorinator/Models/Message.java
         return content;
     }
 
