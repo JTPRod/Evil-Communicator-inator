@@ -17,9 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         usernameP.textContent = `Username: ${username || 'Not logged in'}`;
 const payload = {"bio": "", "user_id": ""};
 console.log(payload);
-let base = sessionStorage.getItem('serverID');
-
-const url = `http://${base}/login`;
+const url = "/login";
 console.log("Login URL: " + url);
 
     // Fetch and display current bio
